@@ -1,0 +1,246 @@
+{
+  "schema_version": 1,
+  "repo": "PCBA_Camera_Serializer_Carrier",
+  "board_id": "camera_serializer_carrier",
+  "benchmark_id": 29,
+  "title": "Dual-Camera High-Speed Carrier",
+  "description": "The split between what BRIEF.md fixes and what it leaves open. Every fixed_requirements entry carries the verbatim brief text that substantiates it, bound to the recorded brief digest. An open_decisions entry is a choice for the design agent: record it in 'chosen' with 'rationale', and never move it into fixed_requirements. Missing details are design freedom, not permission to fabricate unstated user requirements.",
+  "brief": {
+    "path": "../BRIEF.md",
+    "sha256": "8bc219517e0aad84b4b3d8ac46e26e527e13fd4abe6b9193fd96ba6f87ff31d0",
+    "authority": "supplied by the benchmark; authoritative; preserved byte for byte and never edited"
+  },
+  "metadata": {
+    "category": "camera-high-speed",
+    "difficulty": 5,
+    "detail": 2,
+    "layers": "6",
+    "stressors": [
+      "MIPI/serializer high-speed lanes",
+      "compact connectors",
+      "power filtering",
+      "lane escape"
+    ]
+  },
+  "derivation": {
+    "method": "BRIEF.md was read and split; no design decision was taken. Every fixed_requirements entry, and every spec-table row sourced from the brief, carries a quotation that was checked by literal substring match against the brief bytes digested above. The build refuses to emit this file if any quotation is not found.",
+    "quotations_verified": 22,
+    "review": "two rounds of adversarial review against the brief, looking for invented requirements, lost requirements, evidence supporting a weaker claim than the one made beside it, and worksheet questions that presuppose their own answer"
+  },
+  "fixed_requirements": [
+    {
+      "id": "REQ-01",
+      "requirement": "The board is a compact carrier — compactness is a stated property of the design, not an optional goal.",
+      "brief_evidence": "Design a compact carrier for two small digital camera modules"
+    },
+    {
+      "id": "REQ-02",
+      "requirement": "The carrier hosts two small digital camera modules.",
+      "brief_evidence": "Design a compact carrier for two small digital camera modules and a host processor/FPGA connection."
+    },
+    {
+      "id": "REQ-03",
+      "requirement": "The carrier provides a connection to a host processor or FPGA.",
+      "brief_evidence": "two small digital camera modules and a host processor/FPGA connection"
+    },
+    {
+      "id": "REQ-04",
+      "requirement": "The camera interface must be a realistic modern one. The brief offers MIPI CSI-2 and a serializer/deserializer architecture as examples (\"such as\"), so either satisfies it, but the list is not closed and another realistic modern camera interface is equally admissible.",
+      "brief_evidence": "Use a realistic modern camera interface such as MIPI CSI-2 or a serializer/deserializer architecture"
+    },
+    {
+      "id": "REQ-05",
+      "requirement": "Parts must be selected such that public layout guidance exists for them — a device with no public layout guidance is excluded by the brief's own selection criterion.",
+      "brief_evidence": "serializer/deserializer architecture, selecting parts with public layout guidance"
+    },
+    {
+      "id": "REQ-06",
+      "requirement": "The board must include camera power rails.",
+      "brief_evidence": "Include camera power rails, clocks/control, ESD where exposed, and a host connector."
+    },
+    {
+      "id": "REQ-07",
+      "requirement": "The board must include clocks and control signalling for the cameras.",
+      "brief_evidence": "Include camera power rails, clocks/control, ESD where exposed"
+    },
+    {
+      "id": "REQ-08",
+      "requirement": "ESD protection must be included where exposed. The brief states the obligation but not the exposure boundary, which is left open (OPEN-12).",
+      "brief_evidence": "clocks/control, ESD where exposed, and a host connector."
+    },
+    {
+      "id": "REQ-09",
+      "requirement": "The board must include a host connector.",
+      "brief_evidence": "ESD where exposed, and a host connector. Make the mechanical connector placement restrictive enough"
+    },
+    {
+      "id": "REQ-10",
+      "requirement": "Mechanical connector placement must be restrictive enough that high-speed lane escape and return paths are genuinely constrained — the design must not relieve this difficulty by spreading connectors out.",
+      "brief_evidence": "Make the mechanical connector placement restrictive enough that high-speed lane escape and return paths matter."
+    },
+    {
+      "id": "REQ-11",
+      "requirement": "Where the brief is silent, the design agent must make and document reasonable engineering decisions rather than invent hidden user requirements.",
+      "brief_evidence": "make and document reasonable engineering decisions rather than inventing hidden user requirements"
+    },
+    {
+      "id": "REQ-12",
+      "requirement": "Stated brief requirements are authoritative and must not be overridden by later design convenience.",
+      "brief_evidence": "Treat stated requirements as authoritative; where the brief leaves choices open"
+    },
+    {
+      "id": "REQ-13",
+      "requirement": "The repository stays a consumer of the shared PCBA_AutoDesignAndTest toolkit; board-specific logic must not be pushed into the toolkit.",
+      "brief_evidence": "The repository should remain a consumer of the shared `PCBA_AutoDesignAndTest` toolkit rather than accumulating board-specific logic in the toolkit."
+    }
+  ],
+  "open_decisions": [
+    {
+      "id": "OPEN-01",
+      "decision": "Which realistic modern camera interface to adopt: direct MIPI CSI-2 from the cameras to the host, a serializer/deserializer architecture between them, or another realistic modern camera link — and, once chosen, whether it is applied uniformly to both cameras.",
+      "why_open": "The brief names MIPI CSI-2 and SerDes only as examples ('such as') of a 'realistic modern camera interface'; it neither chooses between them nor restricts the choice to those two.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-02",
+      "decision": "Which camera-interface silicon (serializer, deserializer, CSI bridge, aggregator or repeater, if any) to use, and how many of them.",
+      "why_open": "The brief constrains only that the chosen parts have public layout guidance; it names no device, vendor or family.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-03",
+      "decision": "Which camera modules to target, their pinout, and how the two cameras are aggregated or presented to the host (independent links, shared link, or combined).",
+      "why_open": "The brief says 'two small digital camera modules' and nothing about the module family, its interface width, or how the two streams reach the host.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-04",
+      "decision": "Lane count, data rate and per-link bandwidth budget for the camera and host links.",
+      "why_open": "The brief states no resolution, frame rate, pixel depth or bit rate; the entire bandwidth budget is unfixed.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-05",
+      "decision": "Camera-side and host-side connector selection: type, pitch, mating orientation, retention, and pin assignment.",
+      "why_open": "The brief requires 'a host connector' and treats connectors as compact and restrictively placed, but names no connector type and gives no pinout.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-06",
+      "decision": "Board outline, overall dimensions, camera-to-camera spacing and baseline, mounting hole pattern, keepouts and any enclosure interface.",
+      "why_open": "The brief says only that the carrier is 'compact'; it states no dimension, mounting scheme or mechanical envelope.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-07",
+      "decision": "The exact stackup: dielectric materials and thicknesses, copper weights, reference-plane assignment per signal layer, and the actual layer count.",
+      "why_open": "Metadata gives 6 as a *likely* layer count, not a requirement, and neither the brief nor metadata specifies materials, thicknesses or plane assignment.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-08",
+      "decision": "Target differential and single-ended impedances, tolerance, and whether impedance is controlled by the fabricator.",
+      "why_open": "The brief states no impedance target; it only makes return paths matter. The number has to come from the interface and stackup eventually chosen, not from the brief.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-09",
+      "decision": "Intra-pair skew, inter-pair skew and total length-matching budgets, and how they are apportioned across the link.",
+      "why_open": "The brief is silent on timing budgets; these follow from the interface and silicon eventually chosen.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-10",
+      "decision": "Power architecture: input rail(s) and where power enters, number of rails, rail voltages, regulator topology (switching, linear, or pass-through), sequencing, and current budget.",
+      "why_open": "The brief requires 'camera power rails' but names no voltage, no current, no source and no regulator type.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-11",
+      "decision": "Power-filtering strategy: decoupling scheme, ferrite/pi filtering on camera analog and PLL supplies, plane splits, and how filtering is verified.",
+      "why_open": "'Power filtering' is a benchmark stressor, not a specified solution; the brief prescribes no filter topology or component values.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-12",
+      "decision": "Which nets count as 'exposed' for ESD purposes, and what protection strategy is applied to each (device type, placement, and the capacitance budget it must respect on high-speed lanes).",
+      "why_open": "The brief requires 'ESD where exposed' without defining the exposure boundary, the stress level, or any protection component.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-13",
+      "decision": "Clock architecture: whether cameras are clocked from an on-board source, from the host, or recovered from the link; and the jitter budget for that source.",
+      "why_open": "The brief requires 'clocks/control' but does not say where clocks originate or what jitter performance is needed.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-14",
+      "decision": "Camera control plane: which control bus is used, addressing/muxing for two cameras, and reset/power-down/strobe/sync signalling.",
+      "why_open": "The brief groups control with clocks in one phrase and specifies no bus, no address scheme and no sideband signals.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-15",
+      "decision": "Where exactly the restrictive connector placement is applied — which edge or face each connector sits on, and which routing hardship that placement is chosen to create.",
+      "why_open": "The brief mandates that placement be restrictive enough to make lane escape and return paths matter, but leaves the specific geometry that produces this to the design agent.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-16",
+      "decision": "Via strategy for lane escape: via type (through, blind/buried, microvia), stitching-via placement around escapes and layer transitions, the fabrication class this implies, and the cost/capability policy used to weigh it.",
+      "why_open": "The brief is silent on fabrication class and on cost; this follows from the chosen connector pitch and stackup and from the agent's own justification policy.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-17",
+      "decision": "Multi-camera synchronisation: whether the two cameras must be frame-synchronised, and if so by what mechanism.",
+      "why_open": "The brief states two cameras on one carrier but says nothing about synchronisation between them.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-18",
+      "decision": "Test, bring-up and manufacturing-test provisions: test points, probe access on high-speed lanes, programming/debug access, fiducials, and the bring-up sequence itself.",
+      "why_open": "The brief does not mention test or bring-up access at all, and prescribes no order in which the board is brought up.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-19",
+      "decision": "Fabricator and assembly process targets, and the resulting minimum trace/space, annular ring and component-placement rules.",
+      "why_open": "Neither the brief nor the metadata names a fabricator or process class.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-20",
+      "decision": "Thermal handling for the interface silicon and regulators, including copper area, via arrays and any airflow assumption.",
+      "why_open": "The brief states no thermal, ambient or power-dissipation requirement; compactness raises the question but does not answer it.",
+      "chosen": null,
+      "rationale": null
+    },
+    {
+      "id": "OPEN-21",
+      "decision": "What kind of published source counts as 'public layout guidance' for the chosen parts (device-vendor layout or application note, standards-body document, fabricator design rules, published reference design), and how far the layout rules actually used are traced and cited back to it.",
+      "why_open": "The brief conditions part selection on public layout guidance existing but qualifies the guidance in no way and never states that the rules used must be traceable to it; both the admissible source class and the citation discipline are the agent's call.",
+      "chosen": null,
+      "rationale": null
+    }
+  ]
+}
