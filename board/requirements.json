@@ -25,6 +25,7 @@
   "derivation": {
     "method": "BRIEF.md was read and split; no design decision was taken. Every fixed_requirements entry, and every spec-table row sourced from the brief, carries a quotation that was checked by literal substring match against the brief bytes digested above. The build refuses to emit this file if any quotation is not found.",
     "quotations_verified": 22,
+    "where_the_quotations_are": "Every one of them is in this file: fixed_requirements[].brief_evidence and brief_spec_rows[].brief_evidence. The count above is the sum of those two lists, so it is recomputable from this repository alone - re-read BRIEF.md and check each string is a substring of it. brief_spec_rows carries the quotations behind the README's spec table, which would otherwise cite the brief with the evidence left in a build script.",
     "review": "two rounds of adversarial review against the brief, looking for invented requirements, lost requirements, evidence supporting a weaker claim than the one made beside it, and worksheet questions that presuppose their own answer"
   },
   "fixed_requirements": [
@@ -92,6 +93,53 @@
       "id": "REQ-13",
       "requirement": "The repository stays a consumer of the shared PCBA_AutoDesignAndTest toolkit; board-specific logic must not be pushed into the toolkit.",
       "brief_evidence": "The repository should remain a consumer of the shared `PCBA_AutoDesignAndTest` toolkit rather than accumulating board-specific logic in the toolkit."
+    }
+  ],
+  "brief_spec_rows": [
+    {
+      "aspect": "Board function",
+      "value": "Compact carrier for two camera modules plus a host processor/FPGA connection",
+      "brief_evidence": "Design a compact carrier for two small digital camera modules and a host processor/FPGA connection."
+    },
+    {
+      "aspect": "Camera count and type",
+      "value": "Two small digital camera modules",
+      "brief_evidence": "Design a compact carrier for two small digital camera modules"
+    },
+    {
+      "aspect": "Camera link architecture",
+      "value": "A realistic modern camera interface; the brief names MIPI CSI-2 and a serializer/deserializer architecture as examples (\"such as\"), not as a closed list",
+      "brief_evidence": "Use a realistic modern camera interface such as MIPI CSI-2 or a serializer/deserializer architecture"
+    },
+    {
+      "aspect": "Part selection constraint",
+      "value": "Parts chosen must have public layout guidance; the brief does not say what kind of published source qualifies",
+      "brief_evidence": "serializer/deserializer architecture, selecting parts with public layout guidance"
+    },
+    {
+      "aspect": "Camera power",
+      "value": "Camera power rails must be provided on the carrier",
+      "brief_evidence": "Include camera power rails, clocks/control, ESD where exposed, and a host connector."
+    },
+    {
+      "aspect": "Clocks and control",
+      "value": "Clocks/control for the cameras must be included",
+      "brief_evidence": "Include camera power rails, clocks/control, ESD where exposed"
+    },
+    {
+      "aspect": "ESD protection",
+      "value": "Required where exposed; the brief does not define what counts as exposed (see OPEN-12)",
+      "brief_evidence": "clocks/control, ESD where exposed, and a host connector."
+    },
+    {
+      "aspect": "Host interface",
+      "value": "A host connector must be present",
+      "brief_evidence": "ESD where exposed, and a host connector. Make the mechanical connector placement restrictive enough"
+    },
+    {
+      "aspect": "Mechanical connector placement",
+      "value": "Deliberately restrictive, so high-speed lane escape and return paths are load-bearing constraints",
+      "brief_evidence": "Make the mechanical connector placement restrictive enough that high-speed lane escape and return paths matter."
     }
   ],
   "open_decisions": [
